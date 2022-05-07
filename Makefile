@@ -1,7 +1,7 @@
-CUDAPATH ?= /usr/local/cuda
+CUDAPATH ?= /usr/lib/cuda
 
 NVCC     :=  ${CUDAPATH}/bin/nvcc
-CCPATH   ?=
+CCPATH   ?= /usr/bin/clang
 
 CFLAGS   ?=
 CFLAGS   += -O3
@@ -35,7 +35,7 @@ gpu_burn: gpu_burn-drv.o compare.ptx
 	$PATH=${PATH}:${CCPATH}:. ${NVCC} ${NVCCFLAGS} -ptx $< -o $@
 
 clean:
-	$(RM) *.ptx *.o gpu_burn
+	$(RM) *.o
 
 image:
 	docker build -t gpu-burn .
